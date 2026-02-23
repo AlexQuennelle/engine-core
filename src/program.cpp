@@ -98,7 +98,7 @@ void Program::Init()
 	// ImGui::CreateContext();
 	ImGui_ImplBGFX_Init();
 	// TODO: Add proper selection for backends
-	ImGui_ImplGlfw_InitForVulkan(this->win.GetGLFWHandle(), false);
+	ImGui_ImplGlfw_InitForVulkan(this->win.GetGLFWHandle(), true);
 
 	Vertex::Init();
 	this->modelMat = Matrix<4>::Identity();
@@ -126,12 +126,13 @@ void Program::Draw()
 	glfwPollEvents();
 	auto mousePos{this->win.GetMousePos()};
 	// TODO: Fix this shit
-	ImGui_ImplBGFX_NewFrame(mousePos.x, mousePos.y, 0, 0, this->win.GetWidth(),
+	ImGui_ImplBGFX_NewFrame(0, 0, 0, 0, this->win.GetWidth(),
 							this->win.GetHeight());
 	ImGui_ImplGlfw_NewFrame();
 	const Vector3 at = {.x = 0.0f, .y = 0.0f, .z = 0.0f};
 	const Vector3 eye = {.x = 0.0f, .y = 2.0f, .z = -4.0f};
 
+	ImGui::SetNextWindowPos({5.0f,5.0f});
 	bool showDemo{true};
 	if (showDemo)
 	{

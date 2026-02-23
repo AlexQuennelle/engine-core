@@ -483,14 +483,14 @@ struct OcornutImguiContext
 		const double freq = double(bx::getHPFrequency());
 		io.DeltaTime = float(frameTime / freq);
 
-		io.AddMousePosEvent((float)_mx, (float)_my);
-		io.AddMouseButtonEvent(ImGuiMouseButton_Left,
-							   0 != (_button & IMGUI_MBUT_LEFT));
-		io.AddMouseButtonEvent(ImGuiMouseButton_Right,
-							   0 != (_button & IMGUI_MBUT_RIGHT));
-		io.AddMouseButtonEvent(ImGuiMouseButton_Middle,
-							   0 != (_button & IMGUI_MBUT_MIDDLE));
-		io.AddMouseWheelEvent(0.0f, (float)(_scroll - m_lastScroll));
+		// io.AddMousePosEvent((float)_mx, (float)_my);
+		// io.AddMouseButtonEvent(ImGuiMouseButton_Left,
+		// 					   0 != (_button & IMGUI_MBUT_LEFT));
+		// io.AddMouseButtonEvent(ImGuiMouseButton_Right,
+		// 					   0 != (_button & IMGUI_MBUT_RIGHT));
+		// io.AddMouseButtonEvent(ImGuiMouseButton_Middle,
+		// 					   0 != (_button & IMGUI_MBUT_MIDDLE));
+		// io.AddMouseWheelEvent(0.0f, (float)(_scroll - m_lastScroll));
 		m_lastScroll = _scroll;
 
 		ImGui::NewFrame();
