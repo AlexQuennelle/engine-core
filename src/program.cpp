@@ -30,6 +30,7 @@ Program::Program()
 		glfwInitHint(GLFW_PLATFORM, GLFW_PLATFORM_X11);
 	}
 #endif // !__EMSCRIPTEN__
+	glfwWindowHint(GLFW_TRANSPARENT_FRAMEBUFFER, GLFW_FALSE);
 	glfwInit();
 	bgfx::init();
 	this->win = EngineWindow(NAME, 800, 800);
@@ -126,12 +127,11 @@ void Program::Draw()
 	glfwPollEvents();
 	// TODO: Fix this shit
 	ImGui_ImplGlfw_NewFrame();
-	ImGui_ImplBGFX_NewFrame(0, 0, 0, 0, this->win.GetWidth(),
-							this->win.GetHeight());
+	ImGui_ImplBGFX_NewFrame();
 	const Vector3 at = {.x = 0.0f, .y = 0.0f, .z = 0.0f};
 	const Vector3 eye = {.x = 0.0f, .y = 2.0f, .z = -4.0f};
 
-	ImGui::SetNextWindowPos({5.0f,5.0f});
+	ImGui::SetNextWindowPos({5.0f, 5.0f});
 	bool showDemo{true};
 	if (showDemo)
 	{
@@ -157,14 +157,15 @@ void Program::Draw()
 					   0);
 	bgfx::setViewRect(0, 0, 0, static_cast<uint16_t>(this->win.GetWidth()),
 					  static_cast<uint16_t>(this->win.GetHeight()));
-	bgfx::touch(0);
+	// bgfx::touch(0);
 
 	// auto modelMat{Matrix<4>::Identity()};
 	auto testState{BGFX_STATE_WRITE_RGB
-				   | BGFX_STATE_WRITE_A
+				   // | BGFX_STATE_WRITE_A
 				   | BGFX_STATE_WRITE_Z
 				   | BGFX_STATE_DEPTH_TEST_LESS
 				   | BGFX_STATE_CULL_CCW
+				   | BGFX_STATE_BLEND_ALPHA
 				   | BGFX_STATE_MSAA};
 	bgfx::setState(testState);
 	// TODO: Add GameObject/Actor class to encapsulate this stuff

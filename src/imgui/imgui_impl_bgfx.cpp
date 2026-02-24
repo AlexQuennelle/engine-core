@@ -221,6 +221,7 @@ struct OcornutImguiContext
 
 		bgfx::setViewName(m_viewId, "ImGui");
 		bgfx::setViewMode(m_viewId, bgfx::ViewMode::Sequential);
+		// bgfx::setViewClear(m_viewId, BGFX_CLEAR_COLOR, 0x00000000, 1.0f, 0);
 
 		const bgfx::Caps* caps = bgfx::getCaps();
 		{
@@ -295,6 +296,7 @@ struct OcornutImguiContext
 					uint64_t state = 0
 									 | BGFX_STATE_WRITE_RGB
 									 | BGFX_STATE_WRITE_A
+									 | BGFX_STATE_BLEND_ALPHA
 									 | BGFX_STATE_MSAA;
 
 					bgfx::TextureHandle th = BGFX_INVALID_HANDLE;
