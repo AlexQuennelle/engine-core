@@ -21,4 +21,5 @@ if /i "!buildType!" == "Debug" (
 	start %parent%
 )
 endlocal
+pause
 exit

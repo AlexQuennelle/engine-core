@@ -8,6 +8,7 @@
 #include <GLFW/glfw3.h>
 #include <bgfx/bgfx.h>
 #include <bx/math.h>
+#include <csignal>
 #include <cstdint>
 #include <imgui.h>
 #include <print>
@@ -68,6 +69,7 @@ void Program::Init()
 #ifdef __EMSCRIPTEN__
 	init.type = bgfx::RendererType::OpenGL;
 #else
+	std::println("{}", Backend);
 	if (Backend == "VULKAN")
 		init.type = bgfx::RendererType::Vulkan;
 	else if (Backend == "OPEN_GL")
@@ -78,8 +80,17 @@ void Program::Init()
 
 	init.platformData.nwh = this->win.GetNativeHandle();
 #ifdef __linux__
-	init.platformData.ndt = glfwGetWaylandDisplay();
-	init.platformData.type = bgfx::NativeWindowHandleType::Wayland;
+	raise(SIGTRAP);
+	if (glfwPlatformSupported(GLFW_PLATFORM_WAYLAND) != 0)
+	{
+		init.platformData.ndt = glfwGetWaylandDisplay();
+		init.platformData.type = bgfx::NativeWindowHandleType::Wayland;
+	}
+	else
+	{
+		init.platformData.ndt = glfwGetX11Display();
+		init.platformData.type = bgfx::NativeWindowHandleType::Default;
+	}
 #else
 	init.platformData.type = bgfx::NativeWindowHandleType::Default;
 #endif // __linux__
@@ -104,7 +115,7 @@ void Program::Init()
 	Vertex::Init();
 	this->modelMat = Matrix<4>::Identity();
 
-	test = Mesh(RESOURCES_PATH "Cube.obj");
+	test = Mesh(RESOURCES_PATH "Suzanne.obj");
 }
 void Program::Update()
 {
