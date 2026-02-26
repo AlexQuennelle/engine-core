@@ -80,7 +80,7 @@ void Program::Init()
 
 	init.platformData.nwh = this->win.GetNativeHandle();
 #ifdef __linux__
-	raise(SIGTRAP);
+	// raise(SIGTRAP);
 	if (glfwPlatformSupported(GLFW_PLATFORM_WAYLAND) != 0)
 	{
 		init.platformData.ndt = glfwGetWaylandDisplay();
