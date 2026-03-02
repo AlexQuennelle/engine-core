@@ -10,6 +10,9 @@
 #include <iostream>
 #include <numbers>
 
+#undef near
+#undef far
+
 template <uint64_t W, uint64_t H = W> class Matrix
 {
 	public:

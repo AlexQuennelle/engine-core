@@ -21,7 +21,7 @@
 #include "imgui/vs_ocornut_imgui.bin.h"
 #include "matrix.h"
 
-static constexpr std::string noop{"VSH\x5\x0\x0\x0\x0\x0\x0"}; // NOLINT
+static const std::string noop{"VSH\x5\x0\x0\x0\x0\x0\x0"}; // NOLINT
 static const std::array<bgfx::EmbeddedShader, 5> embeddedShaders = {{
 	{.name = "vs_ocornut_imgui",
 	 .data
