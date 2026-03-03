@@ -54,7 +54,7 @@ endif()
 
 # Change this to match the name of the current folder
 project(
-  bgfx-test
+  engine-core
   LANGUAGES CXX C
   VERSION 0.0
 )
@@ -122,10 +122,10 @@ if(LINUX)
         -Wduplicated-branches -Wlogical-op -Wuseless-cast"
 )
 endif()
-file(GLOB_RECURSE
-    MY_SOURCES CONFIGURE_DEPENDS
-     "${CMAKE_CURRENT_SOURCE_DIR}/src/*.cpp"
-)
+# file(GLOB_RECURSE
+#     MY_SOURCES CONFIGURE_DEPENDS
+#      "${CMAKE_CURRENT_SOURCE_DIR}/src/*.cpp"
+# )
 file(GLOB_RECURSE SHADERS
     CONFIGURE_DEPENDS
     "${SHADERS_SOURCE}/*.frag"
@@ -189,7 +189,19 @@ target_compile_features("${CMAKE_PROJECT_NAME}" PRIVATE cxx_std_23)
 #     "${CMAKE_PROJECT_NAME}" PRIVATE
 #     ${CMAKE_BINARY_DIR}/shaders
 # )
-target_sources("${CMAKE_PROJECT_NAME}" PRIVATE ${MY_SOURCES})
+# target_sources("${CMAKE_PROJECT_NAME}" PRIVATE ${MY_SOURCES})
+target_sources("${CMAKE_PROJECT_NAME}"
+    PRIVATE
+    src/imgui/imgui_impl_bgfx.cpp
+    src/camera.cpp
+    src/mesh.cpp
+    src/program.cpp
+    src/quaternion.cpp
+    src/shader.cpp
+    src/vectorN.cpp
+    src/window.cpp
+    src/main.cpp
+)
 if(NOT EMSCRIPTEN)
     target_sources("${CMAKE_PROJECT_NAME}" PRIVATE ${SHADERS})
 endif()
