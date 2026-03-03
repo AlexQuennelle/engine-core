@@ -195,12 +195,12 @@ target_sources("${CMAKE_PROJECT_NAME}"
     src/imgui/imgui_impl_bgfx.cpp
     src/camera.cpp
     src/mesh.cpp
-    src/program.cpp
+    # src/program.cpp
     src/quaternion.cpp
     src/shader.cpp
     src/vectorN.cpp
     src/window.cpp
-    src/main.cpp
+    # src/main.cpp
 )
 if(NOT EMSCRIPTEN)
     target_sources("${CMAKE_PROJECT_NAME}" PRIVATE ${SHADERS})
