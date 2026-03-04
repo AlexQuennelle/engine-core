@@ -71,7 +71,6 @@ add_library(engine-core
     src/imgui/imgui_impl_bgfx.cpp
     src/camera.cpp
     src/mesh.cpp
-    # src/program.cpp
     src/quaternion.cpp
     src/shader.cpp
     src/vectorN.cpp
@@ -88,8 +87,12 @@ if(EMSCRIPTEN)
     set(BGFX_CONFIG_MULTITHREADED OFF)
     set(ASSIMP_BUILD_ZLIB ON)
 endif()
-if(NOT CONFIG_USE_WAYLAND)
-    set(GLFW_BUILD_WAYLAND OFF)
+
+if(CONFIG_USE_WAYLAND)
+    target_compile_definitions(engine-core PUBLIC USE_WAYLAND=true)
+else()
+    # set(GLFW_BUILD_WAYLAND OFF)
+    target_compile_definitions(engine-core PUBLIC USE_WAYLAND=false)
 endif()
 include("${CMAKE_CURRENT_SOURCE_DIR}/cmake/libraries.cmake")
 
