@@ -12,6 +12,11 @@ class Normal3;
 template <typename T>
 concept Vector3D = std::is_same_v<T, Vector3> || std::is_same_v<T, Normal3>;
 
+struct Vector2;
+class Normal2;
+template <typename T>
+concept Vector2D = std::is_same_v<T, Vector2> || std::is_same_v<T, Normal2>;
+
 struct Vector3
 {
 	public:
@@ -83,7 +88,6 @@ struct Vector3
 	private:
 	explicit operator Normal3();
 };
-
 class Normal3
 {
 	public:
@@ -166,4 +170,15 @@ class Normal3
 	float x{0};
 	float y{0};
 	float z{0};
+};
+
+struct Vector2
+{
+	float x{};
+	float y{};
+};
+class Normal2
+{
+	float x{};
+	float y{};
 };

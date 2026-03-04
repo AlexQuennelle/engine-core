@@ -532,6 +532,23 @@ template <> class Matrix<4>
 		return mat;
 	}
 	template <uint64_t W2>
+	auto operator*(const Matrix<W2, 4>& other) const -> Matrix<W2, 4>
+	{
+		Matrix mat{};
+		for (uint64_t y{0}; y < 4; y++)
+		{
+			for (uint64_t x{0}; x < W2; x++)
+			{
+				mat[x, y] = 0;
+				for (int i{0}; i < 4; i++)
+				{
+					mat[x, y] += (*this)[i, y] * other[x, i];
+				}
+			}
+		}
+		return mat;
+	}
+	template <uint64_t W2>
 	auto operator*(const Matrix<W2, 4>& other) -> Matrix<W2, 4>
 	{
 		Matrix mat{};
