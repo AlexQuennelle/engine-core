@@ -15,6 +15,8 @@
 #include <GLFW/glfw3native.h>
 #endif
 
+static const char* TEST = "#canvas";
+
 struct Point2D
 {
 	int32_t x;
@@ -42,7 +44,9 @@ class EngineWindow
 #elifdef __linux__
 		return glfwGetWaylandWindow(this->handle);
 #elifdef __EMSCRIPTEN__
-		return static_cast<void*>(canvasID.get());
+		return this->canvasID;
+		// return static_cast<const void*>(canvasID.c_str());
+		// return static_cast<void*>(canvasID.get());
 #else
 		return nullptr;
 #endif
@@ -62,8 +66,12 @@ class EngineWindow
 	GLFWwindow* handle{nullptr};
 	int width{0};
 	int height{0};
-	static std::vector<EngineWindow*> allWindows;
+	int windowID{};
+	// static std::vector<EngineWindow*> allWindows;
+	static int windowCount;
 #ifdef __EMSCRIPTEN__
-	std::unique_ptr<char> canvasID{"canvas"};
+	void* canvasID = const_cast<char*>(TEST);
+	// std::string canvasID{"canvas"};
+	// std::unique_ptr<char> canvasID{"canvas\0"};
 #endif // __EMSCRIPTEN__
 };

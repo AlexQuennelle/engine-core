@@ -24,12 +24,12 @@ else()
     message("Using port")
     target_link_options(
         engine-core
-        PRIVATE
+        PUBLIC
         "--use-port=contrib.glfw3"
     )
     target_compile_options(
         engine-core
-        PRIVATE
+        PUBLIC
         "--use-port=contrib.glfw3"
     )
 endif()

@@ -1,25 +1,39 @@
 #include "window.h"
 
 #include <bgfx/bgfx.h>
+#include <print>
 
-EngineWindow::EngineWindow() = default;
+int EngineWindow::windowCount{0};
+
+EngineWindow::EngineWindow() : windowID(++this->windowCount)
+{
+
+	std::println("Creating Default window {}", this->windowID);
+};
 EngineWindow::EngineWindow(const std::string& title, const int width,
 						   const int height) :
-	width(width), height(height)
+	width(width), height(height), windowID(++windowCount)
 {
+	std::println("Creating window {} with title {}", this->windowID, title);
+
 	glfwWindowHint(GLFW_CLIENT_API, GLFW_NO_API);
 	glfwWindowHint(GLFW_RESIZABLE, 0);
 	this->handle // NOLINT
 		= glfwCreateWindow(width, height, title.c_str(), nullptr, nullptr);
 	if (this->handle == nullptr)
 	{
+		std::println("Failed to create window");
 	}
 
 	glfwSetWindowUserPointer(this->handle, this);
 
 	glfwSetWindowSizeCallback(this->handle, ResizeCallback);
 }
-EngineWindow::~EngineWindow() { this->Close(); }
+EngineWindow::~EngineWindow()
+{
+	std::println("Destructor called on window {}", windowID);
+	this->Close();
+}
 
 void EngineWindow::Close()
 {
@@ -50,7 +64,9 @@ auto EngineWindow::GetMousePos() const -> Point2D
 
 auto EngineWindow::operator=(EngineWindow&& other) noexcept -> EngineWindow&
 {
-	this->Close();
+	// this->Close();
+	std::println("Moving window {} into window {}", other.windowID,
+				 this->windowID);
 
 	this->handle = other.handle;
 	this->width = other.width;
