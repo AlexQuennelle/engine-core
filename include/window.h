@@ -44,7 +44,8 @@ class EngineWindow
 #elifdef __linux__
 		return glfwGetWaylandWindow(this->handle);
 #elifdef __EMSCRIPTEN__
-		return this->canvasID;
+		return (void*)"#canvas";
+		// return this->canvasID;
 		// return static_cast<const void*>(canvasID.c_str());
 		// return static_cast<void*>(canvasID.get());
 #else
